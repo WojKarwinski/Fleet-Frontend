@@ -1,5 +1,5 @@
 :root {
-  color-scheme: light dark;
+  color-scheme: dark;
 
   max-width: 1280px;
   margin: 0 auto;
@@ -8,20 +8,24 @@
 }
 
 .accordion-button {
-  display: inline;
-}
-
-.col {
-  margin-right: 1rem;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 5px;
 }
 
 .rowOutside {
+  width: 90%;
+  justify-content: space-between;
   text-align: left;
-  padding-left: 1.3rem; /* Consider using Bootstrap utility class: pl-3 */
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.accordion {
+  width: 90%;
 }
 
 .colOutside {
-  margin-right: 10px;
+  padding: 0px;
 }
 
 .bodyContent {
@@ -31,12 +35,80 @@
 }
 
 .dropdown {
-  /* Use a more specific selector or class to avoid unintended styling */
   margin: 5px;
 }
 
 .removeButton {
   margin-left: 5px;
-  /* Consider removing align-self: center; */
-  /* move buttons to the right */
+}
+
+.accordion-button::after {
+  margin: 0;
+}
+
+.infoColumn {
+  text-align: left;
+}
+
+.row {
+  margin: 0px;
+}
+
+.emptyColumn {
+  width: 20px;
+}
+
+.col {
+  flex: 0 0 0%;
+}
+
+/* DARK MODE, COMMENT TO DISABLE */
+html,
+html * {
+  color: #eeeeee !important;
+  border-color: #555555 !important;
+  background-color: #292929 !important;
+}
+
+html,
+body,
+html::before,
+body::before {
+  background-image: none !important;
+}
+
+img,
+video {
+  z-index: 1;
+}
+cite,
+cite * {
+  color: #029833 !important;
+}
+video {
+  background-color: transparent !important;
+}
+input,
+textarea {
+  background-color: #333333 !important;
+}
+input,
+select,
+button {
+  background-image: none !important;
+}
+a {
+  background-color: rgba(255, 255, 255, 0.01) !important;
+}
+
+:before {
+  color: #eeeeee !important;
+}
+:link,
+:link * {
+  color: #8db2e5 !important;
+}
+:visited,
+:visited * {
+  color: rgb(211, 138, 138) !important;
 }

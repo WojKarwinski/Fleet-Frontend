@@ -26,39 +26,55 @@ const DriverComponentBS = ({ data }) => {
   };
   const removeItem = (itemType, driverId) => {
     console.log(`Remove ${itemType} for driver with ID ${driverId}`);
-    // Add logic to remove the item (fuel card or vehicle) for the specified driver
   };
 
   return (
     <>
       <Row className="rowOutside">
-        <Col className="colOutside">First Name</Col>
-        <Col className="colOutside">Last Name</Col>
-        <Col className="colOutside">Birthday</Col>
-        <Col className="colOutside">Vehicle</Col>
-        <Col className="colOutside">Fuelcard</Col>
+        <Col xs={2} className="colOutside">
+          First Name
+        </Col>
+        <Col xs={2} className="colOutside">
+          Last Name
+        </Col>
+        <Col xs={2} className="colOutside">
+          Birthday
+        </Col>
+        <Col xs={2} className="colOutside">
+          Vehicle
+        </Col>
+        <Col xs={2} className="colOutside">
+          Fuelcard
+        </Col>
+        <Col className="emptyColumn"></Col>
       </Row>
       <Accordion>
         {data.map((driver) => (
           <Accordion.Item key={driver.id} eventKey={driver.id.toString()}>
             <Accordion.Header>
-              <Row>
-                <Col>{driver.firstName}</Col>
-                <Col>{driver.lastName}</Col>
-                <Col>{driver.birthDate}</Col>
-                <Col
-                  xs={2}
-                  style={{ color: driver.vehicleID ? "green" : "red" }}
-                >
-                  {driver.vehicleID || "No Vehicle"}
-                </Col>
-                <Col
-                  xs={2}
-                  style={{ color: driver.fuelCardID ? "green" : "red" }}
-                >
-                  {driver.fuelCardID || "No Fuelcard"}
-                </Col>
-              </Row>
+              <Col className="infoColumn" xs={2}>
+                {driver.firstName}
+              </Col>
+              <Col className="infoColumn" xs={2}>
+                {driver.lastName}
+              </Col>
+              <Col className="infoColumn" xs={2}>
+                {driver.birthDate}
+              </Col>
+              <Col
+                className="infoColumn"
+                xs={2}
+                style={{ color: driver.vehicleID ? "green" : "red" }}
+              >
+                {driver.vehicleID || "No Vehicle"}
+              </Col>
+              <Col
+                className="infoColumn"
+                xs={2}
+                style={{ color: driver.fuelCardID ? "green" : "red" }}
+              >
+                {driver.fuelCardID || "No Fuelcard"}
+              </Col>
             </Accordion.Header>
             <Accordion.Body>
               <div className="bodyContent ">
