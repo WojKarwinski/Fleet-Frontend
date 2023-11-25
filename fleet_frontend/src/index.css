@@ -62,8 +62,16 @@
   flex: 0 0 0%;
 }
 
+.pagination {
+  display: flex; /* establish flex container */
+  flex-direction: row; /* align children vertically (column format) */
+  justify-content: center; /* center children vertically */
+  align-items: center;
+  margin: 5px;
+}
+
 /* DARK MODE, COMMENT TO DISABLE */
-html,
+/* html,
 html * {
   color: #eeeeee !important;
   border-color: #555555 !important;
@@ -111,4 +119,4 @@ a {
 :visited,
 :visited * {
   color: rgb(211, 138, 138) !important;
-}
+} */

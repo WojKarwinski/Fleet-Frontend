@@ -1,5 +1,9 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { MDBCol, MDBFormInline, MDBIcon, MDBInput } from "mdbreact";
 
 import {
   Accordion,
@@ -9,9 +13,12 @@ import {
   DropdownButton,
   Row,
   ButtonGroup,
+  Pagination,
 } from "react-bootstrap";
+import { fetchDrivers } from "../api/driver";
+import { CircularProgress } from "@mui/material";
 
-const DriverComponentBS = ({ data }) => {
+const DriverComponentBS = ({ searchQuery }) => {
   const AddNewVehicle = () => {
     console.log("Add New Vehicle");
   };
@@ -27,6 +34,64 @@ const DriverComponentBS = ({ data }) => {
   const removeItem = (itemType, driverId) => {
     console.log(`Remove ${itemType} for driver with ID ${driverId}`);
   };
+
+  const [pageNumber, setPageNumber] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+
+  const handlePageChange = (newPage) => {
+    setPageNumber(newPage);
+  };
+
+  const renderPagination = () => {
+    const totalDrivers = data.length; // get count??
+    const totalPages = 5;
+
+    let items = [];
+    for (let number = 1; number <= totalPages; number++) {
+      items.push(
+        <Pagination.Item
+          key={number}
+          active={number === pageNumber}
+          onClick={() => handlePageChange(number)}
+        >
+          {number}
+        </Pagination.Item>
+      );
+    }
+
+    return <Pagination>{items}</Pagination>;
+  };
+
+  //fetch drivers
+  const { data, error, isError, isLoading, refetch } = useQuery({
+    queryKey: ["fetchDrivers", pageNumber, itemsPerPage, searchQuery],
+    queryFn: () => fetchDrivers(pageNumber, itemsPerPage, searchQuery),
+    enabled: true,
+    initialData: { results: [] },
+  });
+
+  if (isLoading) {
+    return <CircularProgress size={48} />;
+  }
+
+  if (isError) {
+    return <p>{error.message}</p>;
+  }
+
+  if (!data.length) {
+    return (
+      <>
+        <p>No drivers found</p>
+        <button
+          onClick={() => {
+            refetch();
+          }}
+        >
+          Reload
+        </button>
+      </>
+    );
+  }
 
   return (
     <>
@@ -50,7 +115,7 @@ const DriverComponentBS = ({ data }) => {
       </Row>
       <Accordion>
         {data.map((driver) => (
-          <Accordion.Item key={driver.id} eventKey={driver.id.toString()}>
+          <Accordion.Item key={driver.ssn} eventKey={driver.ssn.toString()}>
             <Accordion.Header>
               <Col className="infoColumn" xs={2}>
                 {driver.firstName}
@@ -140,6 +205,7 @@ const DriverComponentBS = ({ data }) => {
             </Accordion.Body>
           </Accordion.Item>
         ))}
+        {renderPagination()}
       </Accordion>
     </>
   );
