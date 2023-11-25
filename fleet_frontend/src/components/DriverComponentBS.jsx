@@ -15,7 +15,7 @@ import {
   ButtonGroup,
   Pagination,
 } from "react-bootstrap";
-import { fetchDrivers } from "../api/driver";
+import { fetchDrivers, removeDriverFromFuelCard } from "../api/driver";
 import { CircularProgress } from "@mui/material";
 
 const DriverComponentBS = ({ searchQuery }) => {
@@ -31,8 +31,14 @@ const DriverComponentBS = ({ searchQuery }) => {
   const AddExistingFuelcard = () => {
     console.log("Add Existing Fuelcard");
   };
-  const removeItem = (itemType, driverId) => {
-    console.log(`Remove ${itemType} for driver with ID ${driverId}`);
+  const removeItem = async (ItemType, itemId, driverId) => {
+    if (ItemType == "Vehicle") {
+      console.log("Remove Vehicle"); // Not yet implemented in API?
+    }
+    if (ItemType == "Fuelcard") {
+      await removeDriverFromFuelCard(itemId, driverId);
+    }
+    refetch();
   };
 
   const [pageNumber, setPageNumber] = useState(1);
@@ -186,7 +192,9 @@ const DriverComponentBS = ({ searchQuery }) => {
                     <Button
                       variant="danger"
                       className="removeButton"
-                      onClick={() => removeItem("Vehicle", driver.id)}
+                      onClick={() =>
+                        removeItem("Vehicle", driver.vehicleID, driver.ssn)
+                      }
                     >
                       Remove Vehicle
                     </Button>
@@ -195,7 +203,9 @@ const DriverComponentBS = ({ searchQuery }) => {
                     <Button
                       variant="danger"
                       className="removeButton"
-                      onClick={() => removeItem("Fuelcard", driver.id)}
+                      onClick={() =>
+                        removeItem("Fuelcard", driver.fuelCardID, driver.ssn)
+                      }
                     >
                       Remove Fuelcard
                     </Button>
