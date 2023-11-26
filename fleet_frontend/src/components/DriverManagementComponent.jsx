@@ -1,8 +1,7 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import { Modal, Button, Row, Col } from "react-bootstrap";
 import SearchDriverComponent from "./SearchDriverComponent";
 import AddNewDriverComponent from "./AddNewDriverComponent";
-import { WidthFull } from "@mui/icons-material";
 
 const DriverManagementComponent = ({
   searchQuery,

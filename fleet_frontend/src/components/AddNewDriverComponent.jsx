@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import { postNewDriver } from "../api/driver";
 
@@ -50,7 +50,7 @@ const AddNewDriverComponent = () => {
       e.target.selectedOptions,
       (option) => option.value
     );
-    const licenseTypesString = selectedOptions.join(", "); // Concatenates the array into a string separated by commas
+    const licenseTypesString = selectedOptions.join(", ");
     setDriver({ ...driver, licenseTypes: licenseTypesString });
   };
 
