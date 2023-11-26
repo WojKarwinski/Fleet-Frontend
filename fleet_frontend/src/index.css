@@ -70,6 +70,10 @@
   margin: 5px;
 }
 
+.ColAddDriver {
+  flex: 1 0 0%;
+}
+
 /* DARK MODE, COMMENT TO DISABLE */
 /* html,
 html * {

@@ -26,3 +26,12 @@ export const deleteVehicleFromDriver = async (driverId) => {
 
   return response.data;
 };
+
+//POST New Driver
+export const postNewDriver = async (driver) => {
+  const url = `http://localhost:5132/api/Driver`;
+
+  const response = await Axios.post(url, driver);
+
+  return response.data;
+};
