@@ -55,7 +55,7 @@ const AddNewDriverComponent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // ... Form submission logic ...
+    // check if API works
   };
 
   return (
