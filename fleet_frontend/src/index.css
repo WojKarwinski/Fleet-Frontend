@@ -65,9 +65,9 @@
 }
 
 .pagination {
-  display: flex; /* establish flex container */
-  flex-direction: row; /* align children vertically (column format) */
-  justify-content: center; /* center children vertically */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
   margin: 5px;
 }
