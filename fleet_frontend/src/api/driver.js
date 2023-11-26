@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-//GET Drivers
+//GET Drivers --works
 export const fetchDrivers = async (pageNumber, itemsPerPage, search = "") => {
   const url = `http://localhost:5132/api/Driver?search=${search}&page=${pageNumber}&pageSize=${itemsPerPage}`;
 
@@ -9,8 +9,8 @@ export const fetchDrivers = async (pageNumber, itemsPerPage, search = "") => {
   return response.data;
 };
 
-//DELETE Fuelcard from Driver
-export const deleteFuelcardFromDriver = async (cardNr, driverId) => {
+//DELETE Fuelcard from Driver --works
+export const deleteFuelcardFromDriver = async (driverId) => {
   const url = `http://localhost:5132/api/Driver/${driverId}/Fuelcard`;
 
   const response = await Axios.delete(url);
@@ -18,9 +18,9 @@ export const deleteFuelcardFromDriver = async (cardNr, driverId) => {
   return response.data;
 };
 
-//DELETE Vehicle from Driver, check if works
-export const deleteVehicleFromDriver = async (vehicleId, driverId) => {
-  const url = `http://localhost:5132/api/Driver/${driverId}/Fehicle`;
+//DELETE Vehicle from Driver --works
+export const deleteVehicleFromDriver = async (driverId) => {
+  const url = `http://localhost:5132/api/Driver/${driverId}/Vehicle`;
 
   const response = await Axios.delete(url);
 

@@ -35,12 +35,12 @@ const DriverComponentBS = ({ searchQuery }) => {
   const AddExistingFuelcard = () => {
     console.log("Add Existing Fuelcard");
   };
-  const removeItem = async (ItemType, itemId, driverId) => {
+  const removeItem = async (ItemType, driverId) => {
     if (ItemType == "Vehicle") {
-      await deleteVehicleFromDriver(itemId, driverId);
+      await deleteVehicleFromDriver(driverId);
     }
     if (ItemType == "Fuelcard") {
-      await deleteFuelcardFromDriver(itemId, driverId);
+      await deleteFuelcardFromDriver(driverId);
     }
     refetch();
   };
@@ -196,9 +196,7 @@ const DriverComponentBS = ({ searchQuery }) => {
                     <Button
                       variant="danger"
                       className="removeButton"
-                      onClick={() =>
-                        removeItem("Vehicle", driver.vehicleID, driver.ssn)
-                      }
+                      onClick={() => removeItem("Vehicle", driver.ssn)}
                     >
                       Remove Vehicle
                     </Button>
@@ -207,9 +205,7 @@ const DriverComponentBS = ({ searchQuery }) => {
                     <Button
                       variant="danger"
                       className="removeButton"
-                      onClick={() =>
-                        removeItem("Fuelcard", driver.fuelCardID, driver.ssn)
-                      }
+                      onClick={() => removeItem("Fuelcard", driver.ssn)}
                     >
                       Remove Fuelcard
                     </Button>
