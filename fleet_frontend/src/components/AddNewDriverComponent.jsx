@@ -14,7 +14,7 @@ const AddNewDriverComponent = () => {
       city: "",
       postalCode: "",
     },
-    licenseTypes: [],
+    licenseTypes: "",
   });
 
   const licenseOptions = [
@@ -50,12 +50,13 @@ const AddNewDriverComponent = () => {
       e.target.selectedOptions,
       (option) => option.value
     );
-    setDriver({ ...driver, licenseTypes: selectedOptions });
+    const licenseTypesString = selectedOptions.join(", "); // Concatenates the array into a string separated by commas
+    setDriver({ ...driver, licenseTypes: licenseTypesString });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // check if API works
+    await postNewDriver(driver);
   };
 
   return (

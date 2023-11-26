@@ -52,6 +52,8 @@
 
 .row {
   margin: 0px;
+  justify-content: space-between;
+  width: 90%;
 }
 
 .emptyColumn {
@@ -72,6 +74,9 @@
 
 .ColAddDriver {
   flex: 1 0 0%;
+}
+.DriverSearchComponent {
+  min-width: 25rem;
 }
 
 /* DARK MODE, COMMENT TO DISABLE */
