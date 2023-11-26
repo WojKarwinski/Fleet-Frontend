@@ -15,7 +15,11 @@ import {
   ButtonGroup,
   Pagination,
 } from "react-bootstrap";
-import { fetchDrivers, removeDriverFromFuelCard } from "../api/driver";
+import {
+  fetchDrivers,
+  deleteFuelcardFromDriver,
+  deleteVehicleFromDriver,
+} from "../api/driver";
 import { CircularProgress } from "@mui/material";
 
 const DriverComponentBS = ({ searchQuery }) => {
@@ -33,10 +37,10 @@ const DriverComponentBS = ({ searchQuery }) => {
   };
   const removeItem = async (ItemType, itemId, driverId) => {
     if (ItemType == "Vehicle") {
-      console.log("Remove Vehicle"); // Not yet implemented in API?
+      await deleteVehicleFromDriver(itemId, driverId);
     }
     if (ItemType == "Fuelcard") {
-      await removeDriverFromFuelCard(itemId, driverId);
+      await deleteFuelcardFromDriver(itemId, driverId);
     }
     refetch();
   };
