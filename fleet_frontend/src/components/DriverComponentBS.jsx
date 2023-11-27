@@ -14,6 +14,7 @@ import {
   Row,
   ButtonGroup,
   Pagination,
+  Modal,
 } from "react-bootstrap";
 import {
   fetchDrivers,
@@ -21,6 +22,7 @@ import {
   deleteVehicleFromDriver,
 } from "../api/driver";
 import { CircularProgress } from "@mui/material";
+import AddNewDriverComponent from "./AddNewDriverComponent";
 
 const DriverComponentBS = ({ searchQuery }) => {
   const AddNewVehicle = () => {
@@ -47,6 +49,13 @@ const DriverComponentBS = ({ searchQuery }) => {
 
   const [pageNumber, setPageNumber] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editingDriver, setEditingDriver] = useState(null);
+
+  const handleEditClick = (driver) => {
+    setEditingDriver(driver);
+    setShowEditModal(true);
+  };
 
   const handlePageChange = (newPage) => {
     setPageNumber(newPage);
@@ -210,8 +219,30 @@ const DriverComponentBS = ({ searchQuery }) => {
                       Remove Fuelcard
                     </Button>
                   )}
+                  <Button
+                    variant="info"
+                    onClick={() => handleEditClick(driver)}
+                  >
+                    Edit
+                  </Button>
                 </div>
               </div>
+              <Modal
+                show={showEditModal}
+                onHide={() => setShowEditModal(false)}
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>Edit Driver</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  {editingDriver && (
+                    <AddNewDriverComponent
+                      editingDriver={editingDriver}
+                      handleModalClose={setShowEditModal}
+                    />
+                  )}
+                </Modal.Body>
+              </Modal>
             </Accordion.Body>
           </Accordion.Item>
         ))}

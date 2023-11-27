@@ -8,13 +8,14 @@ const SearchDriverComponent = ({ searchQuery, onSearchChange }) => {
   };
 
   return (
-    <MDBCol md="6">
+    <MDBCol md="6" >
       <MDBInput
         hint="Search Drivers"
         type="text"
         containerClass="mt-0"
         value={searchQuery}
         onChange={handleSearchChange}
+        className="driver-page-input"
       />
     </MDBCol>
   );

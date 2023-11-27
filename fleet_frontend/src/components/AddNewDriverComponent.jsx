@@ -1,21 +1,41 @@
-import { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState, useEffect } from "react";
 import { Form, Button, Col, Row } from "react-bootstrap";
-import { postNewDriver } from "../api/driver";
+import { postNewDriver, putExistingDriver } from "../api/driver";
 
-const AddNewDriverComponent = () => {
-  const [driver, setDriver] = useState({
-    firstName: "",
-    lastName: "",
-    birthDate: "",
-    ssn: "",
-    address: {
-      street: "",
-      number: "",
-      city: "",
-      postalCode: "",
-    },
-    licenseTypes: "",
-  });
+const AddNewDriverComponent = ({ editingDriver, handleModalClose }) => {
+  const [driver, setDriver] = useState(
+    editingDriver || {
+      firstName: "",
+      lastName: "",
+      birthDate: "",
+      ssn: "",
+      address: {
+        street: "",
+        number: "",
+        city: "",
+        postalCode: "",
+      },
+      licenseTypes: [],
+    }
+  );
+  useEffect(() => {
+    if (editingDriver) {
+      const formattedDriver = {
+        ...editingDriver,
+        birthDate: formatBirthDate(editingDriver.birthDate),
+        licenseTypes: editingDriver.licenseTypes
+          .split(",")
+          .map((type) => type.trim()),
+      };
+      setDriver(formattedDriver);
+    }
+  }, [editingDriver]);
+
+  const formatBirthDate = (dateString) => {
+    const parts = dateString.split("/");
+    return `${parts[2]}-${parts[1]}-${parts[0]}`;
+  };
 
   const licenseOptions = [
     "AM",
@@ -46,22 +66,37 @@ const AddNewDriverComponent = () => {
   };
 
   const handleLicenseChange = (e) => {
-    const selectedOptions = Array.from(
-      e.target.selectedOptions,
-      (option) => option.value
-    );
-    const licenseTypesString = selectedOptions.join(", ");
-    setDriver({ ...driver, licenseTypes: licenseTypesString });
+    const { value, checked } = e.target;
+    const newLicenseTypes = checked
+      ? [...driver.licenseTypes, value]
+      : driver.licenseTypes.filter((type) => type !== value);
+
+    setDriver({ ...driver, licenseTypes: newLicenseTypes });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await postNewDriver(driver);
+    if (editingDriver) {
+      const licenseTypesString = driver.licenseTypes.join(", ");
+      const driverDataForAPI = {
+        ...driver,
+        licenseTypes: licenseTypesString,
+      };
+      await putExistingDriver(driverDataForAPI);
+    } else {
+      const licenseTypesString = driver.licenseTypes.join(", ");
+      const driverDataForAPI = {
+        ...driver,
+        licenseTypes: licenseTypesString,
+      };
+      await postNewDriver(driverDataForAPI);
+    }
+    handleModalClose(false);
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Row>
+      <Row className="RowAddDriver">
         <Form.Group as={Col} className="ColAddDriver">
           <Form.Label>First Name</Form.Label>
           <Form.Control
@@ -82,7 +117,7 @@ const AddNewDriverComponent = () => {
           />
         </Form.Group>
       </Row>
-      <Row>
+      <Row className="RowAddDriver">
         <Form.Group as={Col} className="ColAddDriver">
           <Form.Label>Birth Date</Form.Label>
           <Form.Control
@@ -103,7 +138,7 @@ const AddNewDriverComponent = () => {
           />
         </Form.Group>
       </Row>
-      <Row>
+      <Row className="RowAddDriver">
         <Form.Group as={Col} className="ColAddDriver">
           <Form.Label>Street</Form.Label>
           <Form.Control
@@ -125,7 +160,7 @@ const AddNewDriverComponent = () => {
         </Form.Group>
       </Row>
 
-      <Row>
+      <Row className="RowAddDriver">
         <Form.Group as={Col} className="ColAddDriver">
           <Form.Label>City</Form.Label>
           <Form.Control
@@ -149,23 +184,26 @@ const AddNewDriverComponent = () => {
 
       <Form.Group>
         <Form.Label>License Types</Form.Label>
-        <Form.Control
-          as="select"
-          multiple
-          name="licenseTypes"
-          value={driver.licenseTypes}
-          onChange={handleLicenseChange}
+        <div
+          style={{ height: "150px", overflowY: "scroll" }}
+          className="LicenseDiv"
         >
           {licenseOptions.map((option, idx) => (
-            <option key={idx} value={option}>
-              {option}
-            </option>
+            <Form.Check
+              type="checkbox"
+              key={idx}
+              value={option}
+              label={option}
+              checked={driver.licenseTypes.includes(option)}
+              onChange={handleLicenseChange}
+              style={{ textAlign: "left" }}
+            />
           ))}
-        </Form.Control>
+        </div>
       </Form.Group>
 
       <Button variant="primary" type="submit">
-        Create Driver
+        {editingDriver ? "Update Driver" : "Create Driver"}
       </Button>
     </Form>
   );

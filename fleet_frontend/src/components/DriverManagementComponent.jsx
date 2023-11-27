@@ -2,14 +2,14 @@
 import { Modal, Button, Row, Col } from "react-bootstrap";
 import SearchDriverComponent from "./SearchDriverComponent";
 import AddNewDriverComponent from "./AddNewDriverComponent";
+import { useState } from "react";
+const DriverManagementComponent = ({ searchQuery, onSearchChange }) => {
+  const [showEditModal, setShowEditModal] = useState(false);
 
-const DriverManagementComponent = ({
-  searchQuery,
-  onSearchChange,
-  showModal,
-  handleModalShow,
-  handleModalClose,
-}) => {
+  const handleAddClick = () => {
+    setShowEditModal(true);
+  };
+
   return (
     <>
       <Row>
@@ -20,17 +20,21 @@ const DriverManagementComponent = ({
           />
         </Col>
         <Col xs="auto" className="DriverButtonComponent">
-          <Button variant="primary" onClick={handleModalShow}>
+          <Button
+            variant="secondary"
+            onClick={handleAddClick}
+            className="driver-page-button"
+          >
             Add New Driver
           </Button>
         </Col>
       </Row>
-      <Modal show={showModal} onHide={handleModalClose}>
+      <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Add New Driver</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddNewDriverComponent />
+          {<AddNewDriverComponent handleModalClose={setShowEditModal} />}
         </Modal.Body>
       </Modal>
     </>

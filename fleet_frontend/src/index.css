@@ -1,16 +1,177 @@
+html,
+html * {
+  border-color: #555555 !important;
+  background-color: #292929 !important;
+}
+
+html,
+body,
+html::before,
+body::before {
+  background-image: none !important;
+}
+
+img,
+video {
+  z-index: 1;
+}
+cite,
+cite * {
+  color: #029833 !important;
+}
+video {
+  background-color: transparent !important;
+}
+
+input,
+textarea {
+  background-color: #333333 !important;
+}
+input,
+select,
+button {
+  background-image: none !important;
+  color: white !important;
+}
+div {
+  color: white;
+}
+input {
+  color: black !important;
+}
+
+.form-control {
+  background-color: white !important;
+}
+
 :root {
   color-scheme: dark;
-
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 0;
+  padding: 0;
   text-align: center;
+  --primary: #272727;
+  --secondary: #747474;
+  --driver_page_accent: #ff652f;
+  --vehicle_page_accent: #14a76c;
+  --fuelcard_page_accent: #ffe400;
+}
+
+.driver-page {
+  color: var(--driver_page_accent) !important;
+}
+.driver-page-button {
+  background-color: var(--driver_page_accent) !important;
+}
+
+.vehicle-page {
+  color: var(--vehicle_page_accent) !important;
+}
+.vehicle-page-button {
+  background-color: var(--vehicle_page_accent) !important;
+}
+
+.fuelcard-page {
+  color: var(--fuelcard_page_accent) !important;
+}
+
+.fuelcard-page-button {
+  background-color: var(--fuelcard_page_accent) !important;
+}
+
+.driver-page-input:focus {
+  outline: 2px solid var(--driver_page_accent) !important;
+  transition: ease-out 0.1s;
+  box-shadow: none;
+}
+
+body {
+  background: var(--primary) !important;
+}
+
+.dropdown-toggle {
+  background-color: var(--bs-btn-bg) !important;
+}
+.btn-primary {
+  background-color: var(--bs-btn-bg) !important;
+}
+main {
+  width: 75%;
+}
+
+.icon-button {
+  font-size: 3rem;
+  padding: 4px;
+}
+
+.accordion {
+  --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+.form-check-input:checked {
+  background-color: rgb(33, 86, 201) !important;
+  border: 0;
+}
+
+.form-check-input:focus,
+.label::after,
+label.form-check-label:focus,
+.form-check-input::after,
+.form-check-input:not(:disabled):not(.disabled):active:focus {
+  color: black;
+  outline: 0;
+  border: 0;
+  box-shadow: 0 0 0 0.1rem green !important;
+}
+.icon-button:hover {
+  transform: scale(115%);
+  transition: ease-out 0.2s;
+}
+
+.active {
+  border-right: 1px solid;
+}
+
+.root-header {
+  height: 10vh;
+  color: var(--secondary) !important;
+  display: grid;
+  place-items: center;
+}
+
+.root-header h1 {
+  border-bottom: 1px solid;
+  padding: 10px;
+}
+
+.root-navigation-menu {
+  height: 100vh;
+  width: 75px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  gap: 15px;
+}
+
+.root-navigation-menu {
+  margin-left: 10px;
+}
+
+.main-page {
+  display: flex;
+}
+
+.main-parent {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 50px;
 }
 
 .accordion-button {
   display: flex;
   justify-content: space-between;
   margin-right: 5px;
+  font-size: large;
 }
 
 .rowOutside {
@@ -39,7 +200,8 @@
 }
 
 .removeButton {
-  margin-left: 5px;
+  margin: 5px;
+  background-color: var(--bs-btn-bg) !important;
 }
 
 .accordion-button::after {
@@ -77,55 +239,34 @@
 }
 .DriverSearchComponent {
   min-width: 25rem;
+  padding-left: 0;
 }
 
-/* DARK MODE, COMMENT TO DISABLE */
-/* html,
-html * {
-  color: #eeeeee !important;
-  border-color: #555555 !important;
-  background-color: #292929 !important;
+.DriverButtonComponent {
+  padding-right: 0;
 }
 
-html,
-body,
-html::before,
-body::before {
-  background-image: none !important;
+.AddCircle {
+  size: 1rem;
+}
+.form-label {
+  text-align: left;
+  margin-bottom: 0px;
 }
 
-img,
-video {
-  z-index: 1;
-}
-cite,
-cite * {
-  color: #029833 !important;
-}
-video {
-  background-color: transparent !important;
-}
-input,
-textarea {
-  background-color: #333333 !important;
-}
-input,
-select,
-button {
-  background-image: none !important;
-}
-a {
-  background-color: rgba(255, 255, 255, 0.01) !important;
+.form-control {
+  margin-bottom: 10px;
 }
 
-:before {
-  color: #eeeeee !important;
+.RowAddDriver {
+  width: 100%;
+  text-align: left;
 }
-:link,
-:link * {
-  color: #8db2e5 !important;
+
+.LicenseDiv {
+  margin-right: 10px;
+  margin-left: 12px;
 }
-:visited,
-:visited * {
-  color: rgb(211, 138, 138) !important;
-} */
+
+/* DARK MODE,
+COMMENT TO DISABLE */

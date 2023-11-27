@@ -35,3 +35,12 @@ export const postNewDriver = async (driver) => {
 
   return response.data;
 };
+
+//PUT Existing Driver
+export const putExistingDriver = async (driver) => {
+  const url = `http://localhost:5132/api/Driver`;
+
+  const response = await Axios.put(url, driver);
+
+  return response.data;
+};
